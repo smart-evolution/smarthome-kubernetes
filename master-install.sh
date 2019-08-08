@@ -4,7 +4,6 @@ kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl versio
 exit
 
 kubectl create deployment smarthome-server --image=oszura/smarthome-server-prod
-kubectl expose deployment smarthome-server --type=NodePort --port 3222 --target-port 3222
-kubectl patch svc smarthome-server -p '{"spec":{"externalIPs":["<rpi-ip>"]}}
+kubectl apply -f smarthome-service.yaml
 
 # kubeadm token create --print-join-command - generate joining command
