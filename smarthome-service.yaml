@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: smarthome-server
+  name: smarthome-server
+  selfLink: /api/v1/namespaces/default/services/smarthome-server
+spec:
+  externalIPs:
+  - 192.168.2.250
+  externalTrafficPolicy: Cluster
+  ports:
+  - port: 3222
+    protocol: TCP
+    targetPort: 3222
+    nodePort: 31166
+  selector:
+    app: smarthome-server
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}
+
