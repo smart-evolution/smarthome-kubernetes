@@ -28,9 +28,21 @@ spec:
         app: smarthome-server
     spec:
       containers:
-        - image: oszura/smarthome-server-prod
+        - image: oszura/sh-dashboard-prod
           imagePullPolicy: Always
-          name: smarthome-server-prod
+          name: sh-dashboard-prod
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        - image: oszura/sh-influxdb
+          imagePullPolicy: Always
+          name: sh-influxdb
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        - image: oszura/sh-mongodb
+          imagePullPolicy: Always
+          name: sh-mongodb
           resources: {}
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
@@ -40,11 +52,10 @@ spec:
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
-        securityContext: {}
-        terminationGracePeriodSeconds: 30
-        volumes:
-          - name: mongo-db
-            hostPath:
-              path: /data/db-backup
-              type: Directory
-      status: {}
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - name: mongo-db
+          hostPath:
+            path: /data/db-backup
+            type: Directory
