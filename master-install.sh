@@ -2,6 +2,9 @@ su -
 kubeadm init
 kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
 exit
+sudo cp /etc/kubernetes/admin.conf $HOME/
+sudo chown $(id -u):$(id -g) $HOME/admin.conf
+export KUBECONFIG=$HOME/admin.conf
 
 kubectl apply -f smarthome-deployment.yaml
 kubectl apply -f smarthome-service.yaml
