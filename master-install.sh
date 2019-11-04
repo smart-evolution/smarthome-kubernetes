@@ -11,5 +11,5 @@ kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl versio
 sudo iptables -A FORWARD -j ACCEPT
 
 su -
-kubeadm token create --print-join-command - generate joining command
+kubeadm token create --print-join-command
 exit
