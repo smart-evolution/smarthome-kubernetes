@@ -11,4 +11,3 @@ kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl versio
 
 #hack to fix https://github.com/kubernetes/kubernetes/issues/39823
 sudo iptables -A FORWARD -j ACCEPT
-
