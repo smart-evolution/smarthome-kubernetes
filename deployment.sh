@@ -30,4 +30,5 @@ then
         git checkout tags/$SHPANEL_V
 fi
 
-make deploy
+sed -e 's|NOTIFIER_URL|your-notifier-url|g' ./kubernetes/deployment.yaml | kubectl apply -f -
+kubectl apply -f ./kubernetes/service.yaml
