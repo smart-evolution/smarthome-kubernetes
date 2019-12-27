@@ -17,7 +17,8 @@ then
         git checkout tags/$SHAPI_V
 fi
 
-make deploy
+sed -e 's|NOTIFIER_URL|your-notifier-url|g' ./kubernetes/deployment.yaml | kubectl apply -f -
+kubectl apply -f ./kubernetes/service.yaml
 
 cd /home/oskar/gowork/src/github.com/smart-evolution/shpanel
 
