@@ -1,3 +1,3 @@
 #!/bin/bash
 
-curl -X POST -H 'Content-type: application/json' --data "{\"text\":\"$NOTIFICATION_MSG\"}" $URL
+curl -X POST -H 'Content-type: application/json' --data "{\"text\":\"$NOTIFIER_MSG\"}" $NOTIFIER_URL
