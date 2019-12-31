@@ -6,30 +6,26 @@ export KUBECONFIG=$HOME/admin.conf
 
 kubectl delete --all pods --force --grace-period=0
 
-cd /home/oskar/gowork/src/github.com/smart-evolution/shapi
-
 if [ ! -z "$SHAPI_V"  ]
 then
-        echo "===> updating shapi to verion=$SHAPI_V"
+        cd /home/oskar/gowork/src/github.com/smart-evolution/shapi
+        echo "===> updating shapi to version=$SHAPI_V"
         sudo docker pull oszura/sh-panel-prod:$SHAPI_V
         git pull origin master
         git fetch --tags
         git checkout tags/$SHAPI_V
+        sed -e "s|NOTIFIER_URL|$SLACK_NOTIFIER_URL|g;s|VERSION|$SHAPI_V|g" ./kubernetes/deployment.yaml | kubectl apply -f -
+        kubectl apply -f ./kubernetes/service.yaml
 fi
-
-sed -e 's|NOTIFIER_URL|your-notifier-url|g' ./kubernetes/deployment.yaml | kubectl apply -f -
-kubectl apply -f ./kubernetes/service.yaml
-
-cd /home/oskar/gowork/src/github.com/smart-evolution/shpanel
 
 if [ ! -z "$SHPANEL_V" ]
 then
-        echo "===> updating shpanel to verion=$SHPANEL_V"
+        cd /home/oskar/gowork/src/github.com/smart-evolution/shpanel
+        echo "===> updating shpanel to version=$SHPANEL_V"
         sudo docker pull oszura/sh-panel-prod:$SHPANEL_V
         git pull origin master
         git fetch --tags
         git checkout tags/$SHPANEL_V
+        sed -e "s|NOTIFIER_URL|$SLACK_NOTIFIER_URL|g;s|VERSION|$SHPANEL_V|g" ./kubernetes/deployment.yaml | kubectl apply -f -
+        kubectl apply -f ./kubernetes/service.yaml
 fi
-
-sed -e 's|NOTIFIER_URL|your-notifier-url|g' ./kubernetes/deployment.yaml | kubectl apply -f -
-kubectl apply -f ./kubernetes/service.yaml
