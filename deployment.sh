@@ -14,7 +14,7 @@ then
         git pull origin master
         git fetch --tags
         git checkout tags/$SHAPI_V
-        sed -e "s|NOTIFIER_URL|your-notifier-url|g;s|VERSION|$SHAPI_V|g" ./kubernetes/deployment.yaml | kubectl apply -f -
+        sed -e "s|NOTIFIER_URL|$SLACK_NOTIFIER_URL|g;s|VERSION|$SHAPI_V|g" ./kubernetes/deployment.yaml | kubectl apply -f -
         kubectl apply -f ./kubernetes/service.yaml
 fi
 
@@ -26,6 +26,6 @@ then
         git pull origin master
         git fetch --tags
         git checkout tags/$SHPANEL_V
-        sed -e "s|NOTIFIER_URL|your-notifier-url|g;s|VERSION|$SHPANEL_V|g" ./kubernetes/deployment.yaml | kubectl apply -f -
+        sed -e "s|NOTIFIER_URL|$SLACK_NOTIFIER_URL|g;s|VERSION|$SHPANEL_V|g" ./kubernetes/deployment.yaml | kubectl apply -f -
         kubectl apply -f ./kubernetes/service.yaml
 fi
